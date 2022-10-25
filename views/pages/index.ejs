@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('./partials/header'); %>
+</header>
+
+<main class="container">
+  <div class="jumbotron mt-3">
+    <h1 class="text-center">Encuentra tu dominio soñado</h1>
+    <form action="/search" method="POST" >
+      <div class="input-group mb-3">
+        <input id="searchterm" type="text" name="searchterm" value="<%= searchterm %>" class="form-control shadow-lg" placeholder="Ingresa tu dominio" aria-label="Ingresa tu dominio" aria-describedby="btn-search" >
+        <input class="btn shadow-lg" type="submit" id="btn-search"></input>
+      </div>
+    </form>
+  </div>
+
+  <% if ( search == true ) { %>
+  <div id="terminaciones">
+    <%- include('./partials/results', {title: 'Terminaciones de dominio', terms: terminaciones}); %>
+  </div>
+
+  <div id="otros" class="my-3">
+    <%- include('./partials/results', {title: 'Otros dominios', terms: similares}); %>
+  </div>
+  <% } else { %>
+    <br>
+  <% } %>
+</main>
+
+<footer>
+  <%- include('./partials/footer'); %>
+</footer>
+
+</body>
+</html>
