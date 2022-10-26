@@ -3,8 +3,7 @@
 Este proyecto, generado en colaboración con akky y NIC.MX para Semana i AD22, es una aplicaicón web que al momento de buscar un dominio, muestra las opciones que podrían coincidir si es que están disponibles. Además, muestra diferentes opciones relacionadas para la creación de un nuevo dominio.
 
 ## Demo 
-[GIF]
-
+![Demo del proyecto](https://github.com/ncgo/semanai/blob/main/ezgif-5-36605d3fa4.gif)
 
 ## Instrucciones para correr el proyecto
 Para correr este proyecto, descargue el repositorio e ingrese esto en su terminal 
