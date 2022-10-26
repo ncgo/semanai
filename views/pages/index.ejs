@@ -21,13 +21,16 @@
   </div>
 
   <% if ( search == true ) { %>
-  <div id="terminaciones">
-    <%- include('./partials/results', {title: 'Terminaciones de dominio', terms: terminaciones}); %>
+  <div class="my-3">
+      <%- include('./partials/results', {title: 'Dominios disponibles', terms: terminaciones, id: 'terminaciones', idLetra: 'T'}); %>
   </div>
 
-  <div id="otros" class="my-3">
-    <%- include('./partials/results', {title: 'Otros dominios', terms: similares}); %>
+  <div class="my-3">
+    <%- include('./partials/results', {title: 'Otros dominios', terms: similares, id: 'similares', idLetra: 'S'}) %>
   </div>
+
+  
+
   <% } else { %>
     <br>
   <% } %>

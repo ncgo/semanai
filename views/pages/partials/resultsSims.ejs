@@ -1,0 +1,32 @@
+<h2><%=title%></h2>
+<ul class="list-group">
+    <% for (var i = 0; i < 3;  i++ ) { %>
+        <% if( i <= sims[0].length ) { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center py-2 my-1 shadow-sm">
+            <%= sims[0][i] %> 
+            <button class="btn btn-sm btn-add"  type="button" id="button-addon2">Agregar al carrito</button>
+        </li>
+        <% } %>
+    <% } %>
+        <div id="loadMoreContentSims"></div>
+  </ul>
+  <% if( sims[1].length > 0) { %>
+    <div class="d-flex justify-content-center" style="color: var( --secondary-accent-color)"><b>Dominios ocupados: </b>
+        <span>&nbsp <%= sims[1] %></span>
+    </div>
+  <% } %>  
+  <% if( sims[0].length > 3) { %>
+    <div class="d-flex justify-content-center my-2"><button class="btn btn-link btn-sm" type="button" id="button-loadmoreSims" onClick="loadMoreSims()">Cargar más ...</button></div>
+  <% } %>  
+<script>
+    function loadMoreSims() {
+        document.getElementById("loadMoreContentSims").innerHTML = `<% for (var i = 3; i < sims[0].length;  i++ ) { %>
+        <li class="list-group-item d-flex justify-content-between align-items-center py-2 my-1 shadow-sm">
+            <%= sims[0][i] %> 
+            <button class="btn btn-sm btn-add"  type="button" id="button-addon2">Agregar al carrito</button>
+        </li>
+    <% } %>`
+        const button = document.getElementById("button-loadmoreSims")
+        button.style.display = 'none'
+    }
+</script>
