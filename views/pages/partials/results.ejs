@@ -1,7 +1,7 @@
 <h2><%=title%></h2>
 <ul class="list-group" id="<%= id %>">
     <% for (var i = 0; i < 3;  i++ ) { %>
-        <% if( i <= terms[0].length ) { %>
+        <% if( i < terms[0].length ) { %>
         <li class="list-group-item d-flex justify-content-between align-items-center py-2 my-1 shadow-sm">
             <%= terms[0][i] %> 
             <button class="btn btn-sm btn-add"  type="button" id="button-addon2">Agregar al carrito</button>
@@ -16,16 +16,23 @@
     </div>
   <% } %>  
   <% if( terms[0].length > 3) { %>
-    <div class="d-flex justify-content-center my-2"><button class="btn btn-link btn-sm" type="button" id="button-loadmore<%= id %>" onClick="loadMore('<%= id %>', '<%= idLetra %>', '<%= terms %>')">Cargar más ...</button></div>
+    <div class="d-flex justify-content-center my-2"><button class="btn btn-link btn-sm active" type="button" id="button-loadmore<%= id %>" onClick="loadMore('<%= id %>', '<%= idLetra %>', '<%= terms %>')">Cargar más ...</button></div>
   <% } %>  
 <script>
     function loadMore(id, idLetra, terms) {
-        console.log(terms)
-        more = terms.split(',')
-        for (var i = 3; i < more.length - 1;  i++ ) {
-            document.getElementById("loadMoreContent"+id).innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center py-2 my-1 shadow-sm">` + more[i] + `<button class="btn btn-sm btn-add"  type="button" id="button-addon2">Agregar al carrito</button> </li>`
-        }
         const button = document.getElementById("button-loadmore"+id)
-        button.style.display = 'none'
+        if (button.classList.contains('active')) {
+            more = terms.split(',')
+            for (var i = 3; i < more.length - 1;  i++ ) {
+                document.getElementById("loadMoreContent"+id).innerHTML += `<li class="list-group-item d-flex justify-content-between align-items-center py-2 my-1 shadow-sm">` + more[i] + `<button class="btn btn-sm btn-add"  type="button" id="button-addon2">Agregar al carrito</button> </li>`
+            }
+            button.innerHTML = 'Mostrar menos'
+            button.classList.replace('active', 'inactive')
+        } else{
+            document.getElementById("loadMoreContent"+id).innerHTML = ""
+            button.innerHTML = 'Mostrar más'
+            button.classList.replace('inactive', 'active')
+        }
+        
     }
 </script>
