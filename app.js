@@ -1,3 +1,4 @@
+fs = require('fs')
 const express = require('express');
 const path = require('path');
   
@@ -14,11 +15,29 @@ app.get('/', (req, res)=> {
     res.render('pages/index',  {search: false, searchterm: ""})
 })
 
-function terminaciones(dominio) {
-    const terminaciones = [".com", ".com.mx", ".lat", ".org.mx"]
+try {
+    var dominiosExistentesTxt = fs.readFileSync('dominios.txt', 'utf8');
+    var listaDominios = dominiosExistentesTxt.toString().split('\r\n')
+    console.log(listaDominios)
+} catch(e) {
+    console.log('Error:', e.stack)
+}
+
+const terminaciones = [".net", ".lat", ".cc", ".tv"]
+
+function revisaExistente(dominio) {
+    return listaDominios.includes(dominio)
+}
+
+function terminacionesDominio(dominio) {
     const arrTer = []
     for (const term of terminaciones) {
-        arrTer.push(dominio+term)
+        var newDomain = dominio+term
+        if (!revisaExistente(newDomain)) {
+            arrTer.push(newDomain)
+        } else {
+            console.log("Dominio existente!", newDomain)
+        }
     }
     console.log(arrTer)
     return arrTer
@@ -26,11 +45,15 @@ function terminaciones(dominio) {
 
 function similares(dominio) {
     const palabras = [ "s", "mejor", "best", "hello"]
-    const terminaciones = [".com", ".com.mx", ".lat", ".org.mx"]
     const arrSim = []
     for (const palabra of palabras) {
         for (const term of terminaciones) {
-            arrSim.push(dominio+palabra+term)
+            var newDomain = dominio+palabra+term
+            if (!revisaExistente(newDomain)) {
+                arrSim.push(newDomain)
+            } else {
+                console.log("Dominio existente!", newDomain)
+            }
         }
     }
     console.log(arrSim)
@@ -39,7 +62,7 @@ function similares(dominio) {
 
 app.post('/search', (req, res) => {
     console.log(req.body.searchterm)
-    const terms = terminaciones(req.body.searchterm)
+    const terms = terminacionesDominio(req.body.searchterm)
     const palabras = similares(req.body.searchterm)
     res.status(200)
     res.render("pages/index", {search: true, searchterm: req.body.searchterm, terminaciones: terms, similares: palabras})
