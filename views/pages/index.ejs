@@ -22,11 +22,11 @@
 
   <% if ( search == true ) { %>
   <div id="terminaciones">
-    <%- include('./partials/results', {title: 'Terminaciones de dominio', terms: terminaciones}); %>
+    <%- include('./partials/resultsTerms', {title: 'Terminaciones de dominio', terms: terminaciones}); %>
   </div>
 
   <div id="otros" class="my-3">
-    <%- include('./partials/results', {title: 'Otros dominios', terms: similares}); %>
+    <%- include('./partials/resultsSims', {title: 'Otros dominios', sims: similares}); %>
   </div>
   <% } else { %>
     <br>
