@@ -22,16 +22,14 @@
 
   <% if ( search == true ) { %>
   <div class="my-3">
-      <%- include('./partials/results', {title: 'Test', terms: similares, id: 'test'}); %>
+      <%- include('./partials/results', {title: 'Dominios disponibles', terms: terminaciones, id: 'terminaciones', idLetra: 'T'}); %>
   </div>
 
-  <div id="terminaciones">
-    <%- include('./partials/resultsTerms', {title: 'Terminaciones de dominio', terms: terminaciones, id: 'terms'}); %>
+  <div class="my-3">
+    <%- include('./partials/results', {title: 'Otros dominios', terms: similares, id: 'similares', idLetra: 'S'}) %>
   </div>
 
-  <div id="otros" class="my-3">
-    <%- include('./partials/resultsSims', {title: 'Otros dominios', sims: similares, id: 'sims'}); %>
-  </div>
+  
 
   <% } else { %>
     <br>
