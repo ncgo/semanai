@@ -1,4 +1,5 @@
 fs = require('fs')
+const axios = require('axios')
 const express = require('express');
 const path = require('path');
   
@@ -45,9 +46,19 @@ function terminacionesDominio(dominio) {
 }
 
 function similares(dominio) {
-    const palabras = [ "s", "mejor", "best", "hello"]
+    adjectives = []
+    const palabras = ["s", "best", "new"]
     const arrSim = []
     const ocupados = []
+    axios.get("https://api.datamuse.com/words?rel_jjb="+dominio).then(resp => {
+        const datos = resp.data.slice(0,5)
+        for (var i = 0; i < 5 && i < datos.length; i++) {
+            adjectives.push(datos[i].word)
+        }
+        return [adjectives]
+    })
+
+    
     for (const palabra of palabras) {
         for (const term of terminaciones) {
             var newDomain = dominio+palabra+term
@@ -59,7 +70,6 @@ function similares(dominio) {
             }
         }
     }
-    console.log(arrSim)
     return [arrSim, ocupados]
 }
 
@@ -71,6 +81,11 @@ app.post('/search', (req, res) => {
     res.render("pages/index", {search: true, searchterm: req.body.searchterm, terminaciones: terms, similares: palabras})
     res.end()
 })
+
+function apiCall(dominio) {
+    
+}   
+
   
 app.listen(PORT, (error) =>{
     if(!error)
