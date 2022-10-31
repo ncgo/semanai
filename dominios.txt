@@ -39,4 +39,7 @@ pricetravel.lat
 skipware.net
 tutiendaenred.net
 dobot.cc
-dobot.tv
+dobot.tvdomain
+hello.lat
+hello.net
+patata.nethola.net

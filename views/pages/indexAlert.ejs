@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/head'); %>
+</head>
+<body>
+
+<header>
+  <%- include('./partials/header'); %>
+</header>
+
+<div class="alert alert-success" role="alert">
+  Dominio agregado exitosamente
+</div>
+
+<main class="container">
+  <div class="jumbotron mt-3">
+    <h1 class="text-center">Encuentra tu dominio soñado</h1>
+    <form action="/search" method="POST" >
+      <div class="input-group mb-3">
+        <input id="searchterm" type="text" name="searchterm" value="<%= searchterm %>" class="form-control shadow-lg" placeholder="Ingresa tu dominio" aria-label="Ingresa tu dominio" aria-describedby="btn-search" required >
+        <input class="btn shadow-lg" type="submit" id="btn-search" value="Buscar"></input>
+      </div>
+    </form>
+  </div>
+
+  <% if ( search == true ) { %>
+  <div class="my-3">
+      <%- include('./partials/results', {title: 'Dominios disponibles', terms: terminaciones, id: 'terminaciones', idLetra: 'T'}); %>
+  </div>
+
+  <div class="my-3">
+    <%- include('./partials/results', {title: 'Otros dominios', terms: similares, id: 'similares', idLetra: 'S'}) %>
+  </div>
+
+  
+
+  <% } else { %>
+    <br>
+  <% } %>
+</main>
+
+<footer>
+  <%- include('./partials/footer'); %>
+</footer>
+
+</body>
+</html>

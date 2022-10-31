@@ -24,6 +24,16 @@ try {
     console.log('Error:', e.stack)
 }
 
+function reload() {
+    try {
+        var dominiosExistentesTxt = fs.readFileSync('dominios.txt', 'utf8');
+        var listaDominios = dominiosExistentesTxt.toString().split('\r\n')
+        console.log(listaDominios)
+    } catch(e) {
+        console.log('Error:', e.stack)
+    }
+}
+
 const terminaciones = [".net", ".lat", ".cc", ".tv", ".com"]
 
 function revisaExistente(dominio) {
@@ -79,12 +89,19 @@ app.post('/search', (req, res) => {
     const palabras = similares(req.body.searchterm)
     res.status(200)
     res.render("pages/index", {search: true, searchterm: req.body.searchterm, terminaciones: terms, similares: palabras})
+    reload()
     res.end()
 })
 
-function apiCall(dominio) {
-    
-}   
+app.get('/addDomain/:id', (req, res) => {
+    const domain = toString(req.params.id)
+    console.log(req.params.id)
+    fs.appendFile('dominios.txt', req.params.id, function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+        res.render('pages/indexAlert',  {search: false, searchterm: ""})
+    });
+})
 
   
 app.listen(PORT, (error) =>{
